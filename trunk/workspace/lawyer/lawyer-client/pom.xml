@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ngosdi.lawyer</groupId>
+	<artifactId>lawyer-client</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Lawyer Client</name>
+
+	<modules>
+		<module>lawyer-web-app</module>
+		<module>lawyer-app</module>
+		<!-- <module>lawyer-app-libs</module> -->
+	</modules>
+
+	<properties>
+		<tycho.version>0.26.0</tycho.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<eclipse-repo.url>http://download.eclipse.org/releases/oxygen</eclipse-repo.url>
+		<nebula-stable-repo.url>http://download.eclipse.org/nebula/releases/latest</nebula-stable-repo.url>
+		<nebula-incubation-repo.url>http://download.eclipse.org/nebula/incubation/snapshot</nebula-incubation-repo.url>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>eclipse</id>
+			<url>${eclipse-repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>nebula-stable</id>
+			<url>${nebula-stable-repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>nebula-incubation</id>
+			<url>${nebula-incubation-repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>lawyer-app</artifactId>
+	<packaging>eclipse-plugin</packaging>
+	<parent>
+		<groupId>com.ngosdi.lawyer</groupId>
+		<artifactId>lawyer-client</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ngosdi.lawyer</groupId>
+			<artifactId>lawyer-data</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ngosdi.lawyer</groupId>
+			<artifactId>lawyer-app-libs</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<includeAllDependencies>true</includeAllDependencies>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-director-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<!-- install the product for all configured os/ws/arch environments 
+							using p2 director -->
+						<id>materialize-products</id>
+						<goals>
+							<goal>materialize-products</goal>
+						</goals>
+						<!-- <configuration> <instructions> <Equinox-Unpack>true</Equinox-Unpack> 
+							<Eclipse-BundleShape>dir</Eclipse-BundleShape> </instructions> <environments> 
+							<environment> <os>macosx</os> <ws>cocoa</ws> <arch>x86</arch> </environment> 
+							<environment> <os>macosx</os> <ws>cocoa</ws> <arch>x86_64</arch> </environment> 
+							<environment> <os>win32</os> <ws>win32</ws> <arch>x86</arch> </environment> 
+							<environment> <os>win32</os> <ws>win32</ws> <arch>x86_64</arch> </environment> 
+							<environment> <os>linux</os> <ws>gtk</ws> <arch>x86</arch> </environment> 
+							<environment> <os>linux</os> <ws>gtk</ws> <arch>x86_64</arch> </environment> 
+							</environments> </configuration> -->
+					</execution>
+					<execution>
+						<id>archive-products</id>
+						<goals>
+							<goal>archive-products</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+<!-- 			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>archive-products</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								Packaging the product
+								<zip
+									basedir="${project.build.directory}/products/com.ngosdi.lawyer.app.product/win32/win32/x86"
+									destfile="${project.build.directory}/com.ngosdi.lawyer.app.x86.zip"
+									excludes="p2/,artifacts.xml,eclipsec.exe" />
+
+								Packaging a portable version
+								<zip
+									destfile="${project.build.directory}/com.ngosdi.lawyer.app-portable.x86.zip">
+									<fileset
+										dir="${project.build.directory}/products/com.ngosdi.lawyer.app.app.product/win32/win32/x86"
+										excludes="p2/,artifacts.xml,eclipsec.exe" />
+									Add JVM
+									<zipfileset dir="${java.home}" prefix="jre/" />
+								</zip>
+
+								<concat destfile="${project.build.directory}/mgs.ini"
+									eol="crlf">
+									<header>-vm${line.separator}./jre/bin/javaw.exe${line.separator}</header>
+									<path
+										path="${project.build.directory}/products/com.ngosdi.lawyer.app.app.product/win32/win32/x86/mgs.ini" />
+								</concat>
+
+								Add reference to the JVM in .ini file
+								<zip
+									destfile="${project.build.directory}/com.ngosdi.lawyer.app-portable.x86.zip"
+									update="true">
+									<fileset file="${project.build.directory}/lawyer.ini" />
+								</zip>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+		</plugins>
+	</build>
+</project>

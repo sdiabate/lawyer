@@ -1,0 +1,1 @@
+And the winner is <b>${client.firstName} ${client.lastName}</b> !

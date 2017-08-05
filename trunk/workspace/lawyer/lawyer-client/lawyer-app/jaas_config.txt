@@ -1,0 +1,4 @@
+LAWYER {
+    org.eclipse.equinox.security.auth.module.ExtensionLoginModule required
+        extensionId="lawyer-app.authenticateModule";
+};
